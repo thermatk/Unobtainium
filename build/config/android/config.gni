@@ -93,12 +93,6 @@ if (is_android) {
     default_android_keystore_password = "chromium"
   }
 
-  # google_play_services_package contains the path where individual client
-  # targets (e.g. google_play_services_base_java) are located.
-  if (!defined(google_play_services_package)) {
-    google_play_services_package = "//third_party/android_tools"
-  }
-
   if (!defined(android_support_library_package)) {
     android_support_library_package = "//third_party/android_tools/support"
   }

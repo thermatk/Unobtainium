@@ -344,9 +344,6 @@ if (is_android) {
       "geolocation/android/junit/src/org/chromium/device/geolocation/LocationProviderTest.java",
     ]
     deps = [
-      "$google_play_services_package:google_play_services_base_java",
-      "$google_play_services_package:google_play_services_basement_java",
-      "$google_play_services_package:google_play_services_location_java",
       "//base:base_java",
       "//base:base_java_test_support",
       "//base:base_junit_test_support",

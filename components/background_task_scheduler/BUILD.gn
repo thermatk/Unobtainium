@@ -42,10 +42,6 @@ if (is_android) {
     ]
 
     deps = [
-      "$google_play_services_package:google_play_services_base_java",
-      "$google_play_services_package:google_play_services_basement_java",
-      "$google_play_services_package:google_play_services_gcm_java",
-      "$google_play_services_package:google_play_services_tasks_java",
       "//base:base_java",
       "//third_party/android_tools:android_support_annotations_java",
     ]
@@ -61,10 +57,6 @@ if (is_android) {
 
     deps = [
       ":background_task_scheduler_java",
-      "$google_play_services_package:google_play_services_base_java",
-      "$google_play_services_package:google_play_services_basement_java",
-      "$google_play_services_package:google_play_services_gcm_java",
-      "$google_play_services_package:google_play_services_tasks_java",
       "//base:base_java",
       "//base:base_java_test_support",
       "//third_party/android_support_test_runner:runner_java",
@@ -85,11 +77,6 @@ if (is_android) {
 
     deps = [
       ":background_task_scheduler_java",
-      "$google_play_services_package:google_play_services_auth_base_java",
-      "$google_play_services_package:google_play_services_base_java",
-      "$google_play_services_package:google_play_services_basement_java",
-      "$google_play_services_package:google_play_services_gcm_java",
-      "$google_play_services_package:google_play_services_tasks_java",
       "//base:base_java",
       "//base:base_java_test_support",
       "//base:base_junit_test_support",
