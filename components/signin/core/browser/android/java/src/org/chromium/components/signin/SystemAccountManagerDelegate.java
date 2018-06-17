@@ -23,9 +23,6 @@ import android.os.PatternMatcher;
 import android.os.Process;
 import android.os.SystemClock;
 
-import com.google.android.gms.auth.GoogleAuthException;
-import com.google.android.gms.auth.GoogleAuthUtil;
-import com.google.android.gms.auth.GooglePlayServicesAvailabilityException;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 
@@ -116,9 +113,9 @@ public class SystemAccountManagerDelegate implements AccountManagerDelegate {
         // so don't report any accounts if Google Play Services are out of date.
         checkCanUseGooglePlayServices();
 
-        if (!hasGetAccountsPermission()) {
-            return new Account[] {};
-        }
+        return new Account[] {};
+
+        /*
         long now = SystemClock.elapsedRealtime();
         Account[] accounts = mAccountManager.getAccountsByType(GoogleAuthUtil.GOOGLE_ACCOUNT_TYPE);
         long elapsed = SystemClock.elapsedRealtime() - now;
@@ -128,12 +125,15 @@ public class SystemAccountManagerDelegate implements AccountManagerDelegate {
                     "Signin.AndroidGetAccountsTimeUiThread_AccountManager", elapsed);
         }
         return accounts;
+        */
     }
 
     @Override
     public String getAuthToken(Account account, String authTokenScope) throws AuthException {
         assert !ThreadUtils.runningOnUiThread();
         assert AccountManagerFacade.GOOGLE_ACCOUNT_TYPE.equals(account.type);
+        return null;
+        /*
         try {
             return GoogleAuthUtil.getTokenWithNotification(
                     ContextUtils.getApplicationContext(), account, authTokenScope, null);
@@ -145,10 +145,12 @@ public class SystemAccountManagerDelegate implements AccountManagerDelegate {
         } catch (IOException ex) {
             throw new AuthException(AuthException.TRANSIENT, ex);
         }
+        */
     }
 
     @Override
     public void invalidateAuthToken(String authToken) throws AuthException {
+        /*
         try {
             GoogleAuthUtil.clearToken(ContextUtils.getApplicationContext(), authToken);
         } catch (GooglePlayServicesAvailabilityException ex) {
@@ -158,6 +160,7 @@ public class SystemAccountManagerDelegate implements AccountManagerDelegate {
         } catch (IOException ex) {
             throw new AuthException(AuthException.TRANSIENT, ex);
         }
+        */
     }
 
     @Override

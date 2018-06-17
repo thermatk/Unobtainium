@@ -9,10 +9,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
 
-import com.google.android.gms.auth.AccountChangeEvent;
-import com.google.android.gms.auth.GoogleAuthException;
-import com.google.android.gms.auth.GoogleAuthUtil;
-
 import org.chromium.base.ContextUtils;
 import org.chromium.base.Log;
 import org.chromium.base.VisibleForTesting;
@@ -71,6 +67,7 @@ public class SigninHelper {
         @Override
         public List<String> getAccountChangeEvents(
                 Context context, int index, String accountName) {
+            /*
             try {
                 List<AccountChangeEvent> list = GoogleAuthUtil.getAccountChangeEvents(
                         context, index, accountName);
@@ -88,6 +85,7 @@ public class SigninHelper {
             } catch (GoogleAuthException e) {
                 Log.w(TAG, "Failed to get change events", e);
             }
+            */
             return new ArrayList<>(0);
         }
     }

@@ -4,8 +4,6 @@
 
 package org.chromium.components.signin;
 
-import com.google.android.gms.auth.GoogleAuthException;
-import com.google.android.gms.auth.GoogleAuthUtil;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 
@@ -40,12 +38,7 @@ public class AccountIdProvider {
      * @param accountName The email address of a Google account.
      */
     public String getAccountId(String accountName) {
-        try {
-            return GoogleAuthUtil.getAccountId(ContextUtils.getApplicationContext(), accountName);
-        } catch (IOException | GoogleAuthException ex) {
-            Log.e("cr.AccountIdProvider", "AccountIdProvider.getAccountId", ex);
-            return null;
-        }
+        return null;
     }
 
     /**
