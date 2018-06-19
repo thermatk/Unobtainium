@@ -144,7 +144,6 @@ public class FirstRunActivity extends FirstRunActivityBase implements FirstRunPa
         PrefServiceBridge.getInstance().setNotificationsEnabled(false);
 
         if (mFreProperties.getBoolean(SHOW_DATA_REDUCTION_PAGE)) {
-            mPages.add(new DataReductionProxyFirstRunFragment.Page());
             mFreProgressStates.add(FRE_PROGRESS_DATA_SAVER_SHOWN);
             notifyAdapter = true;
         }

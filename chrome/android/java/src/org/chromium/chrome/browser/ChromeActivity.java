@@ -114,7 +114,6 @@ import org.chromium.chrome.browser.printing.TabPrinter;
 import org.chromium.chrome.browser.profiles.Profile;
 import org.chromium.chrome.browser.share.ShareMenuActionHandler;
 import org.chromium.chrome.browser.snackbar.BottomContainer;
-import org.chromium.chrome.browser.snackbar.DataReductionPromoSnackbarController;
 import org.chromium.chrome.browser.snackbar.DataUseSnackbarController;
 import org.chromium.chrome.browser.snackbar.SnackbarManager;
 import org.chromium.chrome.browser.snackbar.SnackbarManager.SnackbarManageable;
@@ -255,7 +254,6 @@ public abstract class ChromeActivity extends AsyncInitializationActivity
     private SnackbarManager mSnackbarManager;
     private ModalDialogManager mModalDialogManager;
     private DataUseSnackbarController mDataUseSnackbarController;
-    private DataReductionPromoSnackbarController mDataReductionPromoSnackbarController;
     private AppMenuPropertiesDelegate mAppMenuPropertiesDelegate;
     private AppMenuHandler mAppMenuHandler;
     private ToolbarManager mToolbarManager;
@@ -575,7 +573,7 @@ public abstract class ChromeActivity extends AsyncInitializationActivity
                         && DataUseTabUIManager.checkAndResetDataUseTrackingEnded(tab)) {
                     mDataUseSnackbarController.showDataUseTrackingEndedBar();
                 }
-
+                /*
                 // Only alert about data savings once the first paint has happened. It doesn't make
                 // sense to show a snackbar about savings when nothing has been displayed yet.
                 if (DataReductionProxySettings.getInstance().isSnackbarPromoAllowed(tab.getUrl())) {
@@ -587,7 +585,7 @@ public abstract class ChromeActivity extends AsyncInitializationActivity
                     mDataReductionPromoSnackbarController.maybeShowDataReductionPromoSnackbar(
                             DataReductionProxySettings.getInstance()
                                     .getTotalHttpContentLengthSaved());
-                }
+                }*/
             }
 
             @Override

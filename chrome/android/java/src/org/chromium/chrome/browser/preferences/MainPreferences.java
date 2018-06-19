@@ -41,7 +41,6 @@ public class MainPreferences extends PreferenceFragment
     public static final String PREF_SAVED_PASSWORDS = "saved_passwords";
     public static final String PREF_CONTEXTUAL_SUGGESTIONS = "contextual_suggestions";
     public static final String PREF_HOMEPAGE = "homepage";
-    public static final String PREF_DATA_REDUCTION = "data_reduction";
     public static final String PREF_NOTIFICATIONS = "notifications";
     public static final String PREF_LANGUAGES = "languages";
     public static final String PREF_DOWNLOADS = "downloads";
@@ -98,7 +97,6 @@ public class MainPreferences extends PreferenceFragment
         setManagedPreferenceDelegateForPreference(PREF_SEARCH_ENGINE);
         setManagedPreferenceDelegateForPreference(PREF_AUTOFILL_SETTINGS);
         setManagedPreferenceDelegateForPreference(PREF_SAVED_PASSWORDS);
-        setManagedPreferenceDelegateForPreference(PREF_DATA_REDUCTION);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             // If we are on Android O+ the Notifications preference should lead to the Android
@@ -186,10 +184,6 @@ public class MainPreferences extends PreferenceFragment
         } else {
             removePreferenceIfPresent(PREF_CONTEXTUAL_SUGGESTIONS);
         }
-
-        ChromeBasePreference dataReduction =
-                (ChromeBasePreference) findPreference(PREF_DATA_REDUCTION);
-        dataReduction.setSummary(DataReductionPreferences.generateSummary(getResources()));
     }
 
     private Preference addPreferenceIfAbsent(String key) {
@@ -260,9 +254,6 @@ public class MainPreferences extends PreferenceFragment
                 if (PREF_SAVED_PASSWORDS.equals(preference.getKey())) {
                     return PrefServiceBridge.getInstance().isRememberPasswordsManaged();
                 }
-                if (PREF_DATA_REDUCTION.equals(preference.getKey())) {
-                    return DataReductionProxySettings.getInstance().isDataReductionProxyManaged();
-                }
                 if (PREF_SEARCH_ENGINE.equals(preference.getKey())) {
                     return TemplateUrlService.getInstance().isDefaultSearchManaged();
                 }
@@ -279,11 +270,6 @@ public class MainPreferences extends PreferenceFragment
                     PrefServiceBridge prefs = PrefServiceBridge.getInstance();
                     return prefs.isRememberPasswordsManaged()
                             && !prefs.isRememberPasswordsEnabled();
-                }
-                if (PREF_DATA_REDUCTION.equals(preference.getKey())) {
-                    DataReductionProxySettings settings = DataReductionProxySettings.getInstance();
-                    return settings.isDataReductionProxyManaged()
-                            && !settings.isDataReductionProxyEnabled();
                 }
                 if (PREF_SEARCH_ENGINE.equals(preference.getKey())) {
                     return TemplateUrlService.getInstance().isDefaultSearchManaged();

@@ -63,12 +63,7 @@ public class DataReductionPromoUtils {
      * @return Whether the any data reduction proxy promotion has been displayed.
      */
     public static boolean canShowPromos() {
-        if (!DataReductionProxySettings.getInstance().isDataReductionProxyPromoAllowed()) {
             return false;
-        }
-        if (DataReductionProxySettings.getInstance().isDataReductionProxyManaged()) return false;
-        if (DataReductionProxySettings.getInstance().isDataReductionProxyEnabled()) return false;
-        return true;
     }
 
     /**
