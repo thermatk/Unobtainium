@@ -30,7 +30,8 @@
     <!-- Notifications -->
     <org.chromium.chrome.browser.preferences.website.SiteSettingsPreference
         android:fragment="org.chromium.chrome.browser.preferences.website.SingleCategoryPreferences"
-        android:key="notifications" />
+        android:key="notifications"
+        android:enabled="false"/>
     <!-- JavaScript -->
     <org.chromium.chrome.browser.preferences.website.SiteSettingsPreference
         android:fragment="org.chromium.chrome.browser.preferences.website.SingleCategoryPreferences"

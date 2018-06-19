@@ -21,6 +21,7 @@ import org.chromium.chrome.R;
 import org.chromium.chrome.browser.customtabs.CustomTabActivity;
 import org.chromium.chrome.browser.metrics.UmaUtils;
 import org.chromium.chrome.browser.net.spdyproxy.DataReductionProxySettings;
+import org.chromium.chrome.browser.preferences.PrefServiceBridge;
 import org.chromium.chrome.browser.preferences.datareduction.DataReductionPromoUtils;
 import org.chromium.chrome.browser.preferences.datareduction.DataReductionProxyUma;
 import org.chromium.chrome.browser.search_engines.TemplateUrlService;
@@ -139,6 +140,9 @@ public class FirstRunActivity extends FirstRunActivityBase implements FirstRunPa
 
         boolean notifyAdapter = false;
         // An optional Data Saver page.
+
+        PrefServiceBridge.getInstance().setNotificationsEnabled(false);
+
         if (mFreProperties.getBoolean(SHOW_DATA_REDUCTION_PAGE)) {
             mPages.add(new DataReductionProxyFirstRunFragment.Page());
             mFreProgressStates.add(FRE_PROGRESS_DATA_SAVER_SHOWN);
