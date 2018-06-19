@@ -132,7 +132,7 @@ public class OmahaBase {
 
     /** See {@link #sIsDisabled}. */
     static boolean isDisabled() {
-        return sIsDisabled;
+        return true;
     }
 
     /**
