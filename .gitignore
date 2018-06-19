@@ -1,0 +1,4 @@
+out/
+venv/
+*.pyc
+buildtools/linux64/gn
