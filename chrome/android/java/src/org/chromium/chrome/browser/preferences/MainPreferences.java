@@ -98,6 +98,9 @@ public class MainPreferences extends PreferenceFragment
         setManagedPreferenceDelegateForPreference(PREF_AUTOFILL_SETTINGS);
         setManagedPreferenceDelegateForPreference(PREF_SAVED_PASSWORDS);
 
+        Preference about = findPreference("about_chrome");
+        about.setTitle("About Unobtainium");
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             // If we are on Android O+ the Notifications preference should lead to the Android
             // Settings notifications page, not to Chrome's notifications settings page.

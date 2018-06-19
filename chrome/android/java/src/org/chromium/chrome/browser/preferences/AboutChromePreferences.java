@@ -34,7 +34,7 @@ public class AboutChromePreferences extends PreferenceFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActivity().setTitle(R.string.prefs_about_chrome);
+        getActivity().setTitle(getString(R.string.prefs_about_chrome).replace("Chrome","Unobtainium(Chromium)"));
         PreferenceUtils.addPreferencesFromResource(this, R.xml.about_chrome_preferences);
 
         // TODO(crbug.com/635567): Fix this properly.
