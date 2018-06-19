@@ -62,7 +62,8 @@
                         android:layout_marginBottom="@dimen/fre_vertical_spacing"
                         android:gravity="center"
                         android:lineSpacingMultiplier="1.4"
-                        android:textAppearance="@style/BlackBodyDefault" />
+                        android:textAppearance="@style/BlackBodyDefault"
+                        android:visibility="gone" />
 
                     <CheckBox
                         android:id="@+id/send_report_checkbox"

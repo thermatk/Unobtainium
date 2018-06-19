@@ -36,7 +36,7 @@ public abstract class FirstRunActivityBase extends AsyncInitializationActivity {
     public static final String EXTRA_FIRST_RUN_ACTIVITY_RESULT = "Extra.FreActivityResult";
     public static final String EXTRA_FIRST_RUN_COMPLETE = "Extra.FreComplete";
 
-    public static final boolean DEFAULT_METRICS_AND_CRASH_REPORTING = true;
+    public static final boolean DEFAULT_METRICS_AND_CRASH_REPORTING = false;
 
     private boolean mNativeInitialized;
 

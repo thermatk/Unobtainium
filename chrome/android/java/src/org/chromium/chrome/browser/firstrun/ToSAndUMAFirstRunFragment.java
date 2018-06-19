@@ -74,7 +74,7 @@ public class ToSAndUMAFirstRunFragment extends Fragment implements FirstRunFragm
             }
         });
 
-        if (ChromeVersionInfo.isOfficialBuild()) {
+        if (false) {
             int paddingStart = getResources().getDimensionPixelSize(
                     R.dimen.fre_tos_checkbox_padding);
             ApiCompatibilityUtils.setPaddingRelative(mSendReportCheckBox,
