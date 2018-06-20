@@ -44,19 +44,13 @@ public class LocationProviderFactory {
     }
 
     public static void useGmsCoreLocationProvider() {
-        sUseGmsCoreLocationProvider = true;
+        sUseGmsCoreLocationProvider = false;
     }
 
     public static LocationProvider create() {
         if (sProviderImpl != null) return sProviderImpl;
 
-        if (sUseGmsCoreLocationProvider
-                && LocationProviderGmsCore.isGooglePlayServicesAvailable(
-                           ContextUtils.getApplicationContext())) {
-            sProviderImpl = new LocationProviderGmsCore(ContextUtils.getApplicationContext());
-        } else {
-            sProviderImpl = new LocationProviderAndroid();
-        }
+        sProviderImpl = new LocationProviderAndroid();
         return sProviderImpl;
     }
 }

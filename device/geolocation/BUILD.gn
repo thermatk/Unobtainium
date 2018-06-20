@@ -121,7 +121,6 @@ if (is_android) {
       "android/java/src/org/chromium/device/geolocation/LocationProviderAdapter.java",
       "android/java/src/org/chromium/device/geolocation/LocationProviderAndroid.java",
       "android/java/src/org/chromium/device/geolocation/LocationProviderFactory.java",
-      "android/java/src/org/chromium/device/geolocation/LocationProviderGmsCore.java",
     ]
 
     deps = [
