@@ -142,6 +142,7 @@ public class FirstRunActivity extends FirstRunActivityBase implements FirstRunPa
         // An optional Data Saver page.
 
         PrefServiceBridge.getInstance().setNotificationsEnabled(false);
+        PrefServiceBridge.getInstance().setTranslateEnabled(false);
 
         if (mFreProperties.getBoolean(SHOW_DATA_REDUCTION_PAGE)) {
             mFreProgressStates.add(FRE_PROGRESS_DATA_SAVER_SHOWN);
