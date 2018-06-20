@@ -97,6 +97,7 @@ public class PhysicalWeb {
     public static void onChromeStart() {
         // In the case that the user has disabled our flag and restarted, this is a minimal code
         // path to disable our subscription to Nearby.
+        /*
         if (!featureIsEnabled()) {
             if (!SysUtils.isLowEndDevice()) {
                 new NearbyBackgroundSubscription(NearbySubscription.UNSUBSCRIBE).run();
@@ -124,6 +125,7 @@ public class PhysicalWeb {
                 return null;
             }
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        */
     }
 
     /**
@@ -176,6 +178,7 @@ public class PhysicalWeb {
      * Examines the environment in order to decide whether we should begin or end a scan.
      */
     public static void updateScans() {
+        /*
         if (SysUtils.isLowEndDevice()) return;
 
         LocationUtils locationUtils = LocationUtils.getInstance();
@@ -187,5 +190,6 @@ public class PhysicalWeb {
         }
 
         new NearbyBackgroundSubscription(NearbySubscription.SUBSCRIBE).run();
+        */
     }
 }
