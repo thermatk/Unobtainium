@@ -25,7 +25,6 @@ android_library("instance_id_driver_java") {
 
   java_files = [
     "java/src/org/chromium/components/gcm_driver/instance_id/InstanceIDBridge.java",
-    "java/src/org/chromium/components/gcm_driver/instance_id/InstanceIDWithSubtype.java",
   ]
 }
 

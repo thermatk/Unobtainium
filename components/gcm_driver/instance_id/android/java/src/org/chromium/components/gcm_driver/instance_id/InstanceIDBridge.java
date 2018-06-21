@@ -26,7 +26,6 @@ public class InstanceIDBridge {
      * Underlying InstanceIDWithSubtype. May be shared by multiple InstanceIDBridges. Must be
      * initialized on a background thread.
      */
-    private InstanceIDWithSubtype mInstanceID;
 
     private static boolean sBlockOnAsyncTasksForTesting;
 
@@ -71,7 +70,7 @@ public class InstanceIDBridge {
         new BridgeAsyncTask<String>() {
             @Override
             protected String doBackgroundWork() {
-                return mInstanceID.getId();
+                return "";
             }
             @Override
             protected void sendResultToNative(String id) {
@@ -86,7 +85,7 @@ public class InstanceIDBridge {
         new BridgeAsyncTask<Long>() {
             @Override
             protected Long doBackgroundWork() {
-                return mInstanceID.getCreationTime();
+                return 0L;
             }
             @Override
             protected void sendResultToNative(Long creationTime) {
@@ -107,11 +106,7 @@ public class InstanceIDBridge {
         new BridgeAsyncTask<String>() {
             @Override
             protected String doBackgroundWork() {
-                try {
-                    return mInstanceID.getToken(authorizedEntity, scope, extras);
-                } catch (IOException ex) {
-                    return "";
-                }
+                return "";
             }
             @Override
             protected void sendResultToNative(String token) {
@@ -127,12 +122,7 @@ public class InstanceIDBridge {
         new BridgeAsyncTask<Boolean>() {
             @Override
             protected Boolean doBackgroundWork() {
-                try {
-                    mInstanceID.deleteToken(authorizedEntity, scope);
-                    return true;
-                } catch (IOException ex) {
-                    return false;
-                }
+                return true;
             }
             @Override
             protected void sendResultToNative(Boolean success) {
@@ -147,12 +137,7 @@ public class InstanceIDBridge {
         new BridgeAsyncTask<Boolean>() {
             @Override
             protected Boolean doBackgroundWork() {
-                try {
-                    mInstanceID.deleteInstanceID();
-                    return true;
-                } catch (IOException ex) {
-                    return false;
-                }
+                return true;
             }
             @Override
             protected void sendResultToNative(Boolean success) {
@@ -192,10 +177,6 @@ public class InstanceIDBridge {
                 @SuppressWarnings("NoSynchronizedThisCheck") // Only used/accessible by native.
                 protected Result doInBackground(Void... params) {
                     synchronized (InstanceIDBridge.this) {
-                        if (mInstanceID == null) {
-                            mInstanceID = InstanceIDWithSubtype.getInstance(
-                                    ContextUtils.getApplicationContext(), mSubtype);
-                        }
                     }
                     return doBackgroundWork();
                 }

@@ -39,8 +39,6 @@ public class GCMBackgroundTask implements BackgroundTask {
             Log.e(TAG, "The received bundle containing message data could not be validated.");
             return false;
         }
-
-        ChromeGcmListenerService.dispatchMessageToDriver(context, new GCMMessage(extras));
         return false;
     }
 

@@ -12,8 +12,6 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.SystemClock;
 
-import com.google.ipc.invalidation.ticl.android2.channel.AndroidGcmController;
-
 import org.chromium.base.ApplicationState;
 import org.chromium.base.ApplicationStatus;
 import org.chromium.base.FieldTrialList;
@@ -201,16 +199,7 @@ public class InvalidationController implements ApplicationStatus.ApplicationStat
      * Registers for Google Cloud Messaging (GCM) for Invalidations.
      */
     private void ensureGcmIsInitialized() {
-        if (mGcmInitialized) return;
-        mGcmInitialized = true;
-        new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected Void doInBackground(Void... arg0) {
-                boolean useGcmUpstream = true;
-                AndroidGcmController.get(mContext).initializeGcm(useGcmUpstream);
-                return null;
-            }
-        }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        mGcmInitialized = false;
     }
 
     @VisibleForTesting

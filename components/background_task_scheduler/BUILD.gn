@@ -23,7 +23,6 @@ if (is_android) {
   android_library("background_task_scheduler_java") {
     java_files = [
       "android/java/src/org/chromium/components/background_task_scheduler/BackgroundTask.java",
-      "android/java/src/org/chromium/components/background_task_scheduler/BackgroundTaskGcmTaskService.java",
       "android/java/src/org/chromium/components/background_task_scheduler/BackgroundTaskJobService.java",
       "android/java/src/org/chromium/components/background_task_scheduler/BackgroundTaskReflection.java",
       "android/java/src/org/chromium/components/background_task_scheduler/BackgroundTaskScheduler.java",

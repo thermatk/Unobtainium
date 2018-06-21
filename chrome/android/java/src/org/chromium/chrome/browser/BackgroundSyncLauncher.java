@@ -9,10 +9,6 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.StrictMode;
 
-import com.google.android.gms.gcm.GcmNetworkManager;
-import com.google.android.gms.gcm.OneoffTask;
-import com.google.android.gms.gcm.Task;
-
 import org.chromium.base.ContextUtils;
 import org.chromium.base.Log;
 import org.chromium.base.VisibleForTesting;
@@ -36,8 +32,6 @@ public class BackgroundSyncLauncher {
     // The instance of BackgroundSyncLauncher currently owned by a C++
     // BackgroundSyncLauncherAndroid, if any. If it is non-null then the browser is running.
     private static BackgroundSyncLauncher sInstance;
-
-    private GcmNetworkManager mScheduler;
 
     /**
      * Disables the automatic use of the GCMNetworkManager. When disabled, the methods which
@@ -123,6 +117,7 @@ public class BackgroundSyncLauncher {
     @VisibleForTesting
     @CalledByNative
     protected void launchBrowserIfStopped(final boolean shouldLaunch, final long minDelayMs) {
+    /*
         mLaunchBrowserIfStoppedTask = new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... params) {
@@ -147,6 +142,7 @@ public class BackgroundSyncLauncher {
                 }
             }
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        */
     }
 
     /**
@@ -158,7 +154,6 @@ public class BackgroundSyncLauncher {
     }
 
     protected BackgroundSyncLauncher() {
-        mScheduler = GcmNetworkManager.getInstance(ContextUtils.getApplicationContext());
         launchBrowserIfStopped(false, 0);
     }
 
@@ -186,7 +181,7 @@ public class BackgroundSyncLauncher {
         }
         return !sGCMEnabled;
     }
-
+	/*
     private static boolean scheduleLaunchTask(GcmNetworkManager scheduler, long minDelayMs) {
         // Google Play Services may not be up to date, if the application was not installed through
         // the Play Store. In this case, scheduling the task will fail silently.
@@ -229,7 +224,7 @@ public class BackgroundSyncLauncher {
         }
         return true;
     }
-
+	*/
     /**
      * Reschedule any required background sync tasks, if they have been removed due to an
      * application upgrade.
@@ -239,6 +234,7 @@ public class BackgroundSyncLauncher {
      * This method is static so that it can be run without actually instantiating a
      * BackgroundSyncLauncher.
      */
+     /*
     protected static void rescheduleTasksOnUpgrade(final Context context) {
         final GcmNetworkManager scheduler = GcmNetworkManager.getInstance(context);
         BackgroundSyncLauncher.ShouldLaunchCallback callback = shouldLaunch -> {
@@ -252,7 +248,7 @@ public class BackgroundSyncLauncher {
         };
         BackgroundSyncLauncher.shouldLaunchBrowserIfStopped(callback);
     }
-
+	*/
     @VisibleForTesting
     static void setGCMEnabled(boolean enabled) {
         sGCMEnabled = enabled;

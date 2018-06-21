@@ -8,14 +8,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.android.gms.gcm.GcmNetworkManager;
-import com.google.android.gms.gcm.OneoffTask;
-import com.google.android.gms.gcm.PeriodicTask;
-import com.google.android.gms.gcm.Task;
-import com.google.android.gms.gcm.TaskParams;
-
 import org.chromium.base.Log;
 import org.chromium.base.ThreadUtils;
 import org.chromium.base.VisibleForTesting;
@@ -33,7 +25,7 @@ class BackgroundTaskSchedulerGcmNetworkManager implements BackgroundTaskSchedule
     static final String BACKGROUND_TASK_CLASS_KEY = "_background_task_class";
     @VisibleForTesting
     static final String BACKGROUND_TASK_EXTRAS_KEY = "_background_task_extras";
-
+    /*
     static BackgroundTask getBackgroundTaskFromTaskParams(@NonNull TaskParams taskParams) {
         String backgroundTaskClassName = getBackgroundTaskClassFromTaskParams(taskParams);
         return BackgroundTaskReflection.getBackgroundTaskFromClassName(backgroundTaskClassName);
@@ -44,7 +36,7 @@ class BackgroundTaskSchedulerGcmNetworkManager implements BackgroundTaskSchedule
         if (extras == null) return null;
         return extras.getString(BACKGROUND_TASK_CLASS_KEY);
     }
-
+    */
     /**
      * Retrieves the {@link TaskParameters} from the {@link TaskParams}, which are passed as
      * one of the keys. Only values valid for {@link android.os.BaseBundle} are supported, and other
@@ -53,6 +45,8 @@ class BackgroundTaskSchedulerGcmNetworkManager implements BackgroundTaskSchedule
      * @param taskParams the {@link TaskParams} to extract the {@link TaskParameters} from.
      * @return the {@link TaskParameters} for the current job.
      */
+     
+    /*
     static TaskParameters getTaskParametersFromTaskParams(@NonNull TaskParams taskParams) {
         int taskId;
         try {
@@ -132,6 +126,7 @@ class BackgroundTaskSchedulerGcmNetworkManager implements BackgroundTaskSchedule
         return Task.NETWORK_STATE_ANY;
     }
 
+    */
     @Override
     public boolean schedule(Context context, @NonNull TaskInfo taskInfo) {
         ThreadUtils.assertOnUiThread();
@@ -142,6 +137,7 @@ class BackgroundTaskSchedulerGcmNetworkManager implements BackgroundTaskSchedule
                             + " has no parameterless public constructor.");
             return false;
         }
+        /*
 
         GcmNetworkManager gcmNetworkManager = getGcmNetworkManager(context);
         if (gcmNetworkManager == null) {
@@ -158,14 +154,15 @@ class BackgroundTaskSchedulerGcmNetworkManager implements BackgroundTaskSchedule
                     "GcmNetworkManager failed to schedule task, gcm message: " + gcmErrorMessage);
             return false;
         }
-
-        return true;
+		*/
+        return false;
     }
 
     @Override
     public void cancel(Context context, int taskId) {
         ThreadUtils.assertOnUiThread();
 
+        /*
         GcmNetworkManager gcmNetworkManager = getGcmNetworkManager(context);
         if (gcmNetworkManager == null) {
             Log.e(TAG, "GcmNetworkManager is not available.");
@@ -178,14 +175,7 @@ class BackgroundTaskSchedulerGcmNetworkManager implements BackgroundTaskSchedule
         } catch (IllegalArgumentException e) {
             Log.e(TAG, "GcmNetworkManager failed to cancel task.");
         }
-    }
-
-    private GcmNetworkManager getGcmNetworkManager(Context context) {
-        if (GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(context)
-                == ConnectionResult.SUCCESS) {
-            return GcmNetworkManager.getInstance(context);
-        }
-        return null;
+        */
     }
 
     private static String taskIdToTaskTag(int taskId) {

@@ -72,22 +72,17 @@ by a child template that "extends" this file.
     <permission android:name="{{ manifest_package }}.permission.CHILD_SERVICE" android:protectionLevel="signature" />
     <permission android:name="{{ manifest_package }}.permission.READ_WRITE_BOOKMARK_FOLDERS" android:protectionLevel="signatureOrSystem" />
     <permission android:name="{{ manifest_package }}.TOS_ACKED" android:protectionLevel="signatureOrSystem" />
-    <!-- Only chrome can receive the messages and registration result -->
-    <permission android:name="{{ manifest_package }}.permission.C2D_MESSAGE"
-        android:protectionLevel="signature" />
     <permission android:name="{{ manifest_package }}.permission.DEBUG"
                 android:label="Debug web pages"
                 android:permissionGroup="android.permission-group.DEVELOPMENT_TOOLS"
                 android:protectionLevel="signature" />
 
-    <uses-permission android:name="{{ manifest_package }}.permission.C2D_MESSAGE" />
     <uses-permission android:name="{{ manifest_package }}.permission.READ_WRITE_BOOKMARK_FOLDERS" />
     <uses-permission android:name="{{ manifest_package }}.TOS_ACKED" />
 
     <uses-permission android:name="com.chrome.permission.DEVICE_EXTRAS" />
     <uses-permission android:name="com.android.browser.permission.READ_HISTORY_BOOKMARKS"/>
     <uses-permission android:name="com.android.browser.permission.WRITE_HISTORY_BOOKMARKS"/>
-    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT"/>
 
     <uses-permission android:name="com.google.android.apps.now.CURRENT_ACCOUNT_ACCESS" />
@@ -882,43 +877,6 @@ by a child template that "extends" this file.
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|mcc|mnc|screenLayout|smallestScreenSize"
             android:hardwareAccelerated="false" />
 
-        <!-- Receiver for GCM messages. -->
-        <receiver android:name="com.google.android.gms.gcm.GcmReceiver"
-            android:exported="true"
-            android:permission="com.google.android.c2dm.permission.SEND">
-            <intent-filter>
-                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
-               <category android:name="{{ manifest_package }}"/>
-            </intent-filter>
-        </receiver>
-        <!-- GcmTaskService for registration for Invalidations. -->
-        <service android:name="com.google.ipc.invalidation.ticl.android2.channel.GcmRegistrationTaskService"
-            android:exported="true"
-            android:permission="com.google.android.gms.permission.BIND_NETWORK_TASK_SERVICE" >
-            <intent-filter>
-                <action android:name="com.google.android.gms.gcm.ACTION_TASK_READY"/>
-            </intent-filter>
-        </service>
-        <!-- InstanceIDListenerService for token refresh events from GCM. -->
-        <service android:name="com.google.ipc.invalidation.ticl.android2.channel.AndroidInstanceIDListenerService"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.android.gms.iid.InstanceID"/>
-            </intent-filter>
-        </service>
-        <!-- GcmListenerService for messages from GCM. -->
-        <service android:name="org.chromium.chrome.browser.services.gcm.ChromeGcmListenerService"
-            android:exported="false" >
-            <intent-filter>
-              <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-            </intent-filter>
-        </service>
-        <meta-data android:name="ipc.invalidation.ticl.gcm_upstream_service_class"
-            android:value="org.chromium.chrome.browser.services.gcm.InvalidationGcmUpstreamSender" />
-        <service android:name="org.chromium.chrome.browser.services.gcm.InvalidationGcmUpstreamSender"
-            android:exported="false"/>
-
         <!-- Notification service for sync. -->
         <meta-data android:name="ipc.invalidation.ticl.listener_service_class"
             android:value="org.chromium.chrome.browser.invalidation.ChromeInvalidationClientService"/>
@@ -929,8 +887,6 @@ by a child template that "extends" this file.
             </intent-filter>
         </service>
         <service android:name="com.google.ipc.invalidation.ticl.android2.TiclService"
-            android:exported="false"/>
-        <service android:name="com.google.ipc.invalidation.ticl.android2.channel.AndroidMessageSenderService"
             android:exported="false"/>
         <receiver android:name="com.google.ipc.invalidation.ticl.android2.AndroidInternalScheduler$AlarmReceiver"
             android:exported="false"/>
@@ -957,24 +913,6 @@ by a child template that "extends" this file.
         <service android:name="org.chromium.components.background_task_scheduler.BackgroundTaskJobService"
             android:exported="false"
             android:permission="android.permission.BIND_JOB_SERVICE"/>
-
-        <!-- Background Task Scheduler GCM task service -->
-        <service android:name="org.chromium.components.background_task_scheduler.BackgroundTaskGcmTaskService"
-            android:permission="com.google.android.gms.permission.BIND_NETWORK_TASK_SERVICE"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="com.google.android.gms.gcm.ACTION_TASK_READY" />
-            </intent-filter>
-        </service>
-
-        <!-- GcmTaskService implementation to wake Chrome on scheduled events -->
-        <service android:name="org.chromium.chrome.browser.ChromeBackgroundService"
-            android:permission="com.google.android.gms.permission.BIND_NETWORK_TASK_SERVICE"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="com.google.android.gms.gcm.ACTION_TASK_READY" />
-            </intent-filter>
-        </service>
 
         <service android:name="org.chromium.chrome.browser.prerender.ChromePrerenderService"
             android:exported="true"

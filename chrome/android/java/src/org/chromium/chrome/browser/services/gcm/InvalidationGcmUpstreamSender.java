@@ -13,7 +13,6 @@ import android.os.Parcel;
 import android.support.annotation.MainThread;
 import android.util.Log;
 
-import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.ipc.invalidation.ticl.android2.channel.GcmUpstreamSenderService;
 
 import org.chromium.base.ThreadUtils;
@@ -92,6 +91,7 @@ public class InvalidationGcmUpstreamSender extends GcmUpstreamSenderService {
      * This function runs on a thread from the AsyncTask.THREAD_POOL_EXECUTOR.
      */
     private void sendUpstreamMessage(String to, Bundle data, String token, Context context) {
+    	/*
         // Add the OAuth2 token to the bundle. The token should have the prefix Bearer added to it.
         data.putString("Authorization", "Bearer " + token);
         if (!isMessageWithinLimit(data)) {
@@ -105,6 +105,7 @@ public class InvalidationGcmUpstreamSender extends GcmUpstreamSenderService {
             Log.w(TAG, "Send message failed");
             GcmUma.recordGcmUpstreamHistogram(context, GcmUma.UMA_UPSTREAM_SEND_FAILED);
         }
+        */
     }
 
     private boolean isMessageWithinLimit(Bundle data) {
