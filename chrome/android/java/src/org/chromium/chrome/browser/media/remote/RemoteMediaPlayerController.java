@@ -18,8 +18,6 @@ import android.support.v7.app.MediaRouteChooserDialogFragment;
 import android.support.v7.app.MediaRouteControllerDialogFragment;
 import android.support.v7.app.MediaRouteDialogFactory;
 
-import com.google.android.gms.cast.CastMediaControlIntent;
-
 import org.chromium.base.ApplicationStatus;
 import org.chromium.base.Log;
 import org.chromium.base.ThreadUtils;
@@ -283,9 +281,6 @@ public class RemoteMediaPlayerController implements MediaRouteController.UiListe
 
     @Override
     public void onError(int error, String errorMessage) {
-        if (error == CastMediaControlIntent.ERROR_CODE_SESSION_START_FAILED) {
-            showMessageToast(errorMessage);
-        }
     }
 
     @Override

@@ -14,34 +14,23 @@ import org.chromium.base.annotations.JNINamespace;
  */
 @JNINamespace("media_router")
 public class MediaControllerBridge {
-    private final MediaController mMediaController;
-
-    public MediaControllerBridge(MediaController mediaController) {
-        mMediaController = mediaController;
-    }
-
     @CalledByNative
     public void play() {
-        mMediaController.play();
     }
 
     @CalledByNative
     public void pause() {
-        mMediaController.pause();
     }
 
     @CalledByNative
     public void setMute(boolean mute) {
-        mMediaController.setMute(mute);
     }
 
     @CalledByNative
     public void setVolume(float volume) {
-        mMediaController.setVolume(volume);
     }
 
     @CalledByNative
     public void seek(long positionInMs) {
-        mMediaController.seek(positionInMs);
     }
 }

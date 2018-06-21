@@ -121,17 +121,6 @@ public class CastNotificationControl implements MediaRouteController.UiListener,
         // it correctly. Also add code to restore it when Chrome is resumed.
         mAudioManager.requestAudioFocus(this, AudioManager.USE_DEFAULT_STREAM_TYPE,
                 AudioManager.AUDIOFOCUS_GAIN);
-        Intent contentIntent = new Intent(mContext, ExpandedControllerActivity.class);
-        contentIntent.putExtra(MediaNotificationUma.INTENT_EXTRA_NAME,
-                MediaNotificationUma.SOURCE_MEDIA_FLING);
-        mNotificationBuilder = new MediaNotificationInfo.Builder()
-                .setPaused(false)
-                .setPrivate(false)
-                .setNotificationSmallIcon(R.drawable.ic_notification_media_route)
-                .setContentIntent(contentIntent)
-                .setDefaultNotificationLargeIcon(R.drawable.cast_playing_square)
-                .setId(R.id.remote_notification)
-                .setListener(this);
 
         updateNotificationBuilderIfPosterIsGoodEnough();
         mState = initialState;

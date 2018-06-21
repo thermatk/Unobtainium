@@ -20,8 +20,6 @@ import android.support.v7.media.MediaRouter;
 import android.support.v7.media.MediaRouter.RouteInfo;
 import android.support.v7.media.MediaSessionStatus;
 
-import com.google.android.gms.cast.CastMediaControlIntent;
-
 import org.chromium.base.ApplicationState;
 import org.chromium.base.ApplicationStatus;
 import org.chromium.base.Log;
@@ -166,12 +164,11 @@ public class DefaultMediaRouteController extends AbstractMediaRouteController {
 
     @Override
     public MediaRouteSelector buildMediaRouteSelector() {
-        return new MediaRouteSelector.Builder().addControlCategory(
-                CastMediaControlIntent.categoryForRemotePlayback(getCastReceiverId())).build();
+        return new MediaRouteSelector.Builder().build();
     }
 
     protected String getCastReceiverId() {
-        return CastMediaControlIntent.DEFAULT_MEDIA_RECEIVER_APPLICATION_ID;
+        return "";
     }
 
     @Override
@@ -281,12 +278,6 @@ public class DefaultMediaRouteController extends AbstractMediaRouteController {
             ResultBundleHandler resultBundleHandler) {
         Intent intent = new Intent(MediaControlIntent.ACTION_START_SESSION);
         intent.addCategory(MediaControlIntent.CATEGORY_REMOTE_PLAYBACK);
-
-        intent.putExtra(CastMediaControlIntent.EXTRA_CAST_STOP_APPLICATION_WHEN_SESSION_ENDS, true);
-        intent.putExtra(MediaControlIntent.EXTRA_SESSION_STATUS_UPDATE_RECEIVER,
-                mSessionStatusUpdateIntent);
-        intent.putExtra(CastMediaControlIntent.EXTRA_CAST_APPLICATION_ID, getCastReceiverId());
-        intent.putExtra(CastMediaControlIntent.EXTRA_CAST_RELAUNCH_APPLICATION, relaunch);
         if (sessionId != null) intent.putExtra(MediaControlIntent.EXTRA_SESSION_ID, sessionId);
 
         addIntentExtraForDebugLogging(intent);
@@ -295,9 +286,6 @@ public class DefaultMediaRouteController extends AbstractMediaRouteController {
 
     @RemovableInRelease
     private void addIntentExtraForDebugLogging(Intent intent) {
-        if (Log.isLoggable(TAG, Log.DEBUG)) {
-            intent.putExtra(CastMediaControlIntent.EXTRA_DEBUG_LOGGING_ENABLED, true);
-        }
     }
 
     private void getSessionStatus(String sessionId) {
@@ -728,9 +716,6 @@ public class DefaultMediaRouteController extends AbstractMediaRouteController {
             public void onError(String message, Bundle data) {
                 logControlRequestError(intent, message, data);
                 int errorCode = 0;
-                if (data != null) {
-                    errorCode = data.getInt(CastMediaControlIntent.EXTRA_ERROR_CODE);
-                }
 
                 sendErrorToListeners(errorCode);
 

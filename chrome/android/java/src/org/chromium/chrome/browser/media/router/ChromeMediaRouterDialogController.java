@@ -10,21 +10,18 @@ import android.support.v7.media.MediaRouteSelector;
 
 import org.chromium.base.annotations.CalledByNative;
 import org.chromium.base.annotations.JNINamespace;
-import org.chromium.chrome.browser.media.router.cast.CastMediaSource;
-import org.chromium.chrome.browser.media.router.cast.remoting.RemotingMediaSource;
 
 /**
  * Implements the JNI interface called from the C++ Media Router dialog controller implementation
  * on Android.
  */
 @JNINamespace("media_router")
-public class ChromeMediaRouterDialogController implements MediaRouteDialogDelegate {
+public class ChromeMediaRouterDialogController {
 
     private static final String MEDIA_ROUTE_CONTROLLER_DIALOG_FRAGMENT =
             "android.support.v7.mediarouter:MediaRouteControllerDialogFragment";
 
     private final long mNativeDialogController;
-    private MediaRouteDialogManager mDialogManager;
 
     /**
      * Returns a new initialized {@link ChromeMediaRouterDialogController}.
@@ -42,26 +39,6 @@ public class ChromeMediaRouterDialogController implements MediaRouteDialogDelega
      */
     @CalledByNative
     public void openRouteChooserDialog(String[] sourceUrns) {
-        if (isShowingDialog()) return;
-
-        MediaSource source = null;
-        for (String sourceUrn : sourceUrns) {
-            source = CastMediaSource.from(sourceUrn);
-            if (source == null) source = RemotingMediaSource.from(sourceUrn);
-
-            if (source != null) break;
-        }
-
-        MediaRouteSelector routeSelector = source == null ? null : source.buildRouteSelector();
-
-        if (routeSelector == null) {
-            nativeOnMediaSourceNotSupported(mNativeDialogController);
-            return;
-        }
-
-        mDialogManager =
-                new MediaRouteChooserDialogManager(source.getSourceId(), routeSelector, this);
-        mDialogManager.openDialog();
     }
 
     /**
@@ -71,21 +48,6 @@ public class ChromeMediaRouterDialogController implements MediaRouteDialogDelega
      */
     @CalledByNative
     public void openRouteControllerDialog(String sourceUrn, String mediaRouteId) {
-        if (isShowingDialog()) return;
-
-        MediaSource source = CastMediaSource.from(sourceUrn);
-        if (source == null) source = RemotingMediaSource.from(sourceUrn);
-
-        MediaRouteSelector routeSelector = source == null ? null : source.buildRouteSelector();
-
-        if (routeSelector == null) {
-            nativeOnMediaSourceNotSupported(mNativeDialogController);
-            return;
-        }
-
-        mDialogManager = new MediaRouteControllerDialogManager(
-                source.getSourceId(), routeSelector, mediaRouteId, this);
-        mDialogManager.openDialog();
     }
 
     /**
@@ -93,10 +55,6 @@ public class ChromeMediaRouterDialogController implements MediaRouteDialogDelega
      */
     @CalledByNative
     public void closeDialog() {
-        if (!isShowingDialog()) return;
-
-        mDialogManager.closeDialog();
-        mDialogManager = null;
     }
 
     /**
@@ -104,31 +62,7 @@ public class ChromeMediaRouterDialogController implements MediaRouteDialogDelega
      */
     @CalledByNative
     public boolean isShowingDialog() {
-        return mDialogManager != null && mDialogManager.isShowingDialog();
-    }
-
-    @Override
-    public void onSinkSelected(String sourceUrn, MediaSink sink) {
-        mDialogManager = null;
-        nativeOnSinkSelected(mNativeDialogController, sourceUrn, sink.getId());
-    }
-
-    @Override
-    public void onRouteClosed(String mediaRouteId) {
-        mDialogManager = null;
-        nativeOnRouteClosed(mNativeDialogController, mediaRouteId);
-    }
-
-    @Override
-    public void onDialogCancelled() {
-        // For MediaRouteControllerDialog this method will be called in case the route is closed
-        // since it only call onDismiss() and there's no way to distinguish between the two.
-        // Here we can figure it out: if mDialogManager is null, onRouteClosed() was called and
-        // there's no need to tell the native controller the dialog has been cancelled.
-        if (mDialogManager == null) return;
-
-        mDialogManager = null;
-        nativeOnDialogCancelled(mNativeDialogController);
+        return false;
     }
 
     private ChromeMediaRouterDialogController(long nativeDialogController) {

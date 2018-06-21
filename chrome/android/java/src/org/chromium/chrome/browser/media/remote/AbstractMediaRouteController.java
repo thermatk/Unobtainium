@@ -15,8 +15,6 @@ import android.support.v7.media.MediaRouteSelector;
 import android.support.v7.media.MediaRouter;
 import android.support.v7.media.MediaRouter.RouteInfo;
 
-import com.google.android.gms.cast.CastMediaControlIntent;
-
 import org.chromium.base.ContextUtils;
 import org.chromium.base.Log;
 import org.chromium.base.VisibleForTesting;
@@ -591,7 +589,6 @@ public abstract class AbstractMediaRouteController implements MediaRouteControll
                     clearItemState();
                     break;
                 case ERROR:
-                    sendErrorToListeners(CastMediaControlIntent.ERROR_CODE_REQUEST_FAILED);
                     release();
                     break;
                 default:
