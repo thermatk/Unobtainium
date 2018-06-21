@@ -9,8 +9,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 
-import com.google.android.gms.common.GoogleApiAvailability;
-
 import org.chromium.base.ThreadUtils;
 import org.chromium.base.metrics.CachedMetrics.ActionEvent;
 import org.chromium.base.metrics.CachedMetrics.EnumeratedHistogramSample;
@@ -113,7 +111,6 @@ public abstract class UserRecoverableErrorHandler {
                         .record(ERROR_HANDLER_ACTION_IGNORED_AS_REDUNDANT);
                 return;
             }
-            GoogleApiAvailability.getInstance().showErrorNotification(context, errorCode);
             sErrorHandlerActionHistogramSample.record(ERROR_HANDLER_ACTION_SYSTEM_NOTIFICATION);
         }
     }
@@ -205,13 +202,6 @@ public abstract class UserRecoverableErrorHandler {
             // with a different error code is encountered.
             if (mErrorCode != errorCode) {
                 cancelDialog();
-            }
-            if (mDialog == null) {
-                mDialog = GoogleApiAvailability.getInstance().getErrorDialog(
-                        mActivity, errorCode, NO_RESPONSE_REQUIRED);
-                mErrorCode = errorCode;
-
-                DialogUserActionRecorder.createAndAttachToDialog(mDialog);
             }
             // This can happen if |errorCode| is ConnectionResult.SERVICE_INVALID.
             if (mDialog != null && !mDialog.isShowing()) {

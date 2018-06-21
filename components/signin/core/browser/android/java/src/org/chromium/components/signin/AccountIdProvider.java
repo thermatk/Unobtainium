@@ -4,9 +4,6 @@
 
 package org.chromium.components.signin;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
-
 import org.chromium.base.ContextUtils;
 import org.chromium.base.Log;
 import org.chromium.base.StrictModeContext;
@@ -47,12 +44,7 @@ public class AccountIdProvider {
      * Google Play services is available.
      */
     public boolean canBeUsed() {
-        // TODO(http://crbug.com/577190): Remove StrictMode override.
-        try (StrictModeContext unused = StrictModeContext.allowDiskWrites()) {
-            int resultCode = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(
-                    ContextUtils.getApplicationContext());
-            return resultCode == ConnectionResult.SUCCESS;
-        }
+        return false;
     }
 
     /**

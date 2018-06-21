@@ -4,9 +4,6 @@
 
 package org.chromium.shape_detection;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
-
 import org.chromium.base.ContextUtils;
 import org.chromium.mojo.bindings.InterfaceRequest;
 import org.chromium.mojo.system.MojoException;
@@ -24,10 +21,7 @@ public class FaceDetectionProviderImpl implements FaceDetectionProvider {
     @Override
     public void createFaceDetection(
             InterfaceRequest<FaceDetection> request, FaceDetectorOptions options) {
-        final boolean isGmsCoreSupported =
-                GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(
-                        ContextUtils.getApplicationContext())
-                == ConnectionResult.SUCCESS;
+        final boolean isGmsCoreSupported = false;
 
         if (isGmsCoreSupported) {
             //FaceDetection.MANAGER.bind(new FaceDetectionImplGmsCore(options), request);

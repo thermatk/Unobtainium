@@ -23,9 +23,6 @@ import android.os.PatternMatcher;
 import android.os.Process;
 import android.os.SystemClock;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
-
 import org.chromium.base.ApiCompatibilityUtils;
 import org.chromium.base.Callback;
 import org.chromium.base.ContextUtils;
@@ -82,17 +79,7 @@ public class SystemAccountManagerDelegate implements AccountManagerDelegate {
     }
 
     protected void checkCanUseGooglePlayServices() throws AccountManagerDelegateException {
-        Context context = ContextUtils.getApplicationContext();
-        final int resultCode =
-                GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(context);
-        if (resultCode == ConnectionResult.SUCCESS) {
-            return;
-        }
-
-        throw new GmsAvailabilityException(
-                String.format("Can't use Google Play Services: %s",
-                        GoogleApiAvailability.getInstance().getErrorString(resultCode)),
-                resultCode);
+        throw new GmsAvailabilityException("Can't use Google Play Services: CFOSS",0);
     }
 
     @Override

@@ -4,8 +4,6 @@
 
 package org.chromium.components.signin;
 
-import com.google.android.gms.common.GoogleApiAvailability;
-
 /**
  * This class encapsulates return code if GMSCore package is not available.
  */
@@ -27,6 +25,6 @@ public class GmsAvailabilityException extends AccountManagerDelegateException {
     }
 
     public boolean isUserResolvableError() {
-        return GoogleApiAvailability.getInstance().isUserResolvableError(mResultCode);
+        return false;
     }
 }

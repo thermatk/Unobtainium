@@ -22,8 +22,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 
-import com.google.android.gms.common.GooglePlayServicesUtil;
-
 import org.chromium.base.CommandLine;
 import org.chromium.base.Log;
 import org.chromium.base.ThreadUtils;
@@ -161,13 +159,7 @@ public class UpdateMenuItemHelper {
     }
 
     private static boolean isGooglePlayStoreAvailable(Context context) {
-        try {
-            context.getPackageManager().getPackageInfo(
-                    GooglePlayServicesUtil.GOOGLE_PLAY_STORE_PACKAGE, 0);
-        } catch (PackageManager.NameNotFoundException e) {
-            return false;
-        }
-        return true;
+        return false;
     }
 
     /**

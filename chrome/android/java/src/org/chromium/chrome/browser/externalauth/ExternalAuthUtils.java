@@ -15,9 +15,6 @@ import android.os.SystemClock;
 import android.support.annotation.WorkerThread;
 import android.text.TextUtils;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
-
 import org.chromium.base.ContextUtils;
 import org.chromium.base.Log;
 import org.chromium.base.ThreadUtils;
@@ -164,12 +161,7 @@ public class ExternalAuthUtils {
      *         when it is updating.
      */
     public boolean isGooglePlayServicesMissing(final Context context) {
-        final int resultCode = checkGooglePlayServicesAvailable(context);
-        if (resultCode == ConnectionResult.SERVICE_MISSING
-                || resultCode == ConnectionResult.SERVICE_INVALID) {
             return true;
-        }
-        return false;
     }
 
     /**
@@ -184,23 +176,6 @@ public class ExternalAuthUtils {
      * @return true if and only if Google Play Services can be used
      */
     public boolean canUseGooglePlayServices(final UserRecoverableErrorHandler errorHandler) {
-        Context context = ContextUtils.getApplicationContext();
-        final int resultCode = checkGooglePlayServicesAvailable(context);
-        recordConnectionResult(resultCode);
-        if (resultCode == ConnectionResult.SUCCESS) {
-            return true;
-        }
-        // resultCode is some kind of error.
-        Log.v(TAG, "Unable to use Google Play Services: %s", describeError(resultCode));
-        if (isUserRecoverableError(resultCode)) {
-            Runnable errorHandlerTask = new Runnable() {
-                @Override
-                public void run() {
-                    errorHandler.handleError(context, resultCode);
-                }
-            };
-            ThreadUtils.runOnUiThread(errorHandlerTask);
-        }
         return false;
     }
 
@@ -262,17 +237,7 @@ public class ExternalAuthUtils {
      * @return The code produced by calling the external code
      */
     protected int checkGooglePlayServicesAvailable(final Context context) {
-        // Temporarily allowing disk access. TODO: Fix. See http://crbug.com/577190
-        StrictMode.ThreadPolicy oldPolicy = StrictMode.allowThreadDiskWrites();
-        try {
-            long time = SystemClock.elapsedRealtime();
-            int isAvailable =
-                    GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(context);
-            mRegistrationTimeHistogramSample.record(SystemClock.elapsedRealtime() - time);
-            return isAvailable;
-        } finally {
-            StrictMode.setThreadPolicy(oldPolicy);
-        }
+        return 1;
     }
 
     /**
@@ -283,7 +248,7 @@ public class ExternalAuthUtils {
      * @return true If the code represents a user-recoverable error
      */
     protected boolean isUserRecoverableError(final int errorCode) {
-        return GoogleApiAvailability.getInstance().isUserResolvableError(errorCode);
+        return false;
     }
 
     /**
@@ -293,6 +258,6 @@ public class ExternalAuthUtils {
      * @return a textual description of the error code
      */
     protected String describeError(final int errorCode) {
-        return GoogleApiAvailability.getInstance().getErrorString(errorCode);
+        return "";
     }
 }

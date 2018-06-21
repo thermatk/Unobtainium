@@ -7,8 +7,6 @@ package org.chromium.chrome.browser;
 import android.content.Context;
 import android.content.pm.PackageManager;
 
-import com.google.android.gms.common.GoogleApiAvailability;
-
 import org.chromium.base.ContextUtils;
 import org.chromium.base.annotations.CalledByNative;
 import org.chromium.chrome.browser.externalauth.ExternalAuthUtils;
@@ -88,7 +86,7 @@ public class ChromeVersionInfo {
     public static String getGmsInfo() {
         Context context = ContextUtils.getApplicationContext();
 
-        final long sdkVersion = GoogleApiAvailability.GOOGLE_PLAY_SERVICES_VERSION_CODE;
+        final long sdkVersion = 0L;
         final long installedGmsVersion = getPlayServicesApkVersionNumber(context);
 
         final String accessType;
@@ -105,12 +103,6 @@ public class ChromeVersionInfo {
     }
 
     private static long getPlayServicesApkVersionNumber(Context context) {
-        try {
-            return context.getPackageManager()
-                    .getPackageInfo(GoogleApiAvailability.GOOGLE_PLAY_SERVICES_PACKAGE, 0)
-                    .versionCode;
-        } catch (PackageManager.NameNotFoundException e) {
             return 0;
-        }
     }
 }
