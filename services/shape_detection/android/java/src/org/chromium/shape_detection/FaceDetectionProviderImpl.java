@@ -30,7 +30,7 @@ public class FaceDetectionProviderImpl implements FaceDetectionProvider {
                 == ConnectionResult.SUCCESS;
 
         if (isGmsCoreSupported) {
-            FaceDetection.MANAGER.bind(new FaceDetectionImplGmsCore(options), request);
+            //FaceDetection.MANAGER.bind(new FaceDetectionImplGmsCore(options), request);
         } else {
             FaceDetection.MANAGER.bind(new FaceDetectionImpl(options), request);
         }

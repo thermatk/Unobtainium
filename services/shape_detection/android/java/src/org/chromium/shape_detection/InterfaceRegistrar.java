@@ -20,9 +20,7 @@ class InterfaceRegistrar {
         // is not necessary to hold on to a reference to it explicitly.
         InterfaceRegistry registry = InterfaceRegistry.create(
                 CoreImpl.getInstance().acquireNativeHandle(nativeHandle).toMessagePipeHandle());
-        registry.addInterface(BarcodeDetection.MANAGER, new BarcodeDetectionImpl.Factory());
         registry.addInterface(
                 FaceDetectionProvider.MANAGER, new FaceDetectionProviderImpl.Factory());
-        registry.addInterface(TextDetection.MANAGER, new TextDetectionImpl.Factory());
     }
 }
