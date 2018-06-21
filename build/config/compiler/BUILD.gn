@@ -1336,7 +1336,9 @@ config("default_warnings") {
       "-Wno-unused-parameter",  # Unused function parameters.
     ]
   }
-
+  
+  cflags += [ "-Wno-error=return-std-move" ]
+  
   if (is_clang) {
     cflags += [
       # TODO(thakis): Consider -Wloop-analysis (turns on
@@ -1390,7 +1392,6 @@ config("default_warnings") {
 
         # Ignore warnings about MSVC optimization pragmas.
         # TODO(thakis): Only for no_chromium_code? http://crbug.com/505314
-        "-Wno-ignored-pragma-optimize",
       ]
       if (llvm_force_head_revision) {
         cflags += [
