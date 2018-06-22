@@ -1,5 +1,8 @@
 [![Donate](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/thermatk/)
 
+# Migrated
+Due to repo size limit: https://gitlab.com/thermatk/Unobtainium
+
 # ![Logo](chrome/app/theme/chromium/product_logo_64.png) Unobtainium
 
 Unobtainium is a libre fork of Chromium. Do not expect it to be ungoogled, it's unblobbed!
